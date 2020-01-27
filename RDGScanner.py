@@ -80,7 +80,7 @@ def check_server(ip, port, timeout):
 
     sock = SSL.Connection(ctx, socket.socket(socket.AF_INET, socket.SOCK_DGRAM))
 
-    sock.connect((string(ip), int(port)))
+    sock.connect((str(ip), int(port)))
     sock.send(build_connect_packet(0, 65, b"A"))
 
     read_fds, _, _ = select.select([sock], [], [], timeout)
