@@ -69,7 +69,7 @@ def parse_target_args(target, port, timeout):
         print("CIDR Search")
         for ip in IPNetwork(target):
             counter = counter + 1
-            scan_server(ip, port, timeout)
+            scan_server(str(ip), port, timeout)
 
     # if we are just using 1 IP address
     else:
