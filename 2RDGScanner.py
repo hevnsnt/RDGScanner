@@ -59,6 +59,13 @@ def scan_server(ip, port, timeout):
             error_code = struct.unpack('<L', data[12:])[0]
             if error_code == 0x8000ffff:
                 vulnerable = False
+    if connected:
+        if vulnerable:
+            print('Scan Completed: server is vulnerable')
+        else:
+            print('Scan Completed: server is not vulnerable')
+    else:
+        print('ERROR: could not connect to server')
 
 
 def parse_target_args(target, port, timeout):
@@ -66,7 +73,7 @@ def parse_target_args(target, port, timeout):
     global threat
     # if we are iterating through IP addresses to scan CIDR notations 
     if "/" in target:
-        print("CIDR Search")
+        print("[+] Searching CIDR block")
         for ip in IPNetwork(target):
             counter = counter + 1
             scan_server(str(ip), port, timeout)
@@ -84,10 +91,4 @@ if __name__ == '__main__':
 
     parse_target_args(sys.argv[1], sys.argv[2], timeout_secs)
 
-    if connected:
-        if vulnerable:
-            print('Scan Completed: server is vulnerable')
-        else:
-            print('Scan Completed: server is not vulnerable')
-    else:
-        print('ERROR: could not connect to server')
+    
