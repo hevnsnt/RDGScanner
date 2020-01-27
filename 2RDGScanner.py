@@ -66,6 +66,7 @@ def parse_target_args(target, port, timeout):
     global threat
     # if we are iterating through IP addresses to scan CIDR notations 
     if "/" in target:
+        print("CIDR Search")
         for ip in IPNetwork(target):
             counter = counter + 1
             scan_server(target, port, timeout)
