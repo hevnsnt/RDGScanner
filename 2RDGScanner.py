@@ -74,7 +74,7 @@ def parse_target_args(target, port, timeout):
     # if we are just using 1 IP address
     else:
         counter = counter + 1 
-        check_server(target, port,verbose)
+        check_server(target, port,timeout)
 
 
 if __name__ == '__main__':
