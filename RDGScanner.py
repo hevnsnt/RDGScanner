@@ -110,7 +110,7 @@ def parse_target_args(target, port, timeout):
         CIDR_Blocks = asn_to_ip(target)
         for ip_block in CIDR_Blocks:
             for ip in IPNetwork(ip_block):
-                check_server(ip,port,verbose)
+                check_server(ip,port,timeout)
                 #thread = threading.Thread(target=check_server, args=(ip,port,verbose))
                 #thread.start()
                 #time.sleep(0.05)
@@ -121,7 +121,7 @@ def parse_target_args(target, port, timeout):
     elif "/" in target:
         for ip in IPNetwork(target):
             counter = counter + 1
-            check_server(ip,port,verbose)
+            check_server(ip,port,timeout)
             #thread = threading.Thread(target=check_server, args=(ip,port,verbose))
             #check_server(ip,port,verbose)
             #thread.start()
@@ -133,7 +133,7 @@ def parse_target_args(target, port, timeout):
     # if we are just using 1 IP address
     else:
         counter = counter + 1 
-        check_server(target, port,verbose)
+        check_server(target, port,timeout)
 
 def banner():
     print("""
