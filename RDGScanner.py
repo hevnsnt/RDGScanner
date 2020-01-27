@@ -101,7 +101,7 @@ def check_server(ip, port, timeout):
         print('ERROR: could not connect to server')
 
 
-def parse_target_args(target, port, verbose):
+def parse_target_args(target, port, timeout):
     global counter
     global threat
 
@@ -110,22 +110,25 @@ def parse_target_args(target, port, verbose):
         CIDR_Blocks = asn_to_ip(target)
         for ip_block in CIDR_Blocks:
             for ip in IPNetwork(ip_block):
-                thread = threading.Thread(target=check_server, args=(ip,port,verbose))
-                thread.start()
-                time.sleep(0.05)
+                check_server(ip,port,verbose)
+                #thread = threading.Thread(target=check_server, args=(ip,port,verbose))
+                #thread.start()
+                #time.sleep(0.05)
             # wait for the threads to complete
-            thread.join()
+            #thread.join()
 
     # if we are iterating through IP addresses to scan CIDR notations 
     elif "/" in target:
         for ip in IPNetwork(target):
             counter = counter + 1
-            thread = threading.Thread(target=check_server, args=(ip,port,verbose))
-            thread.start()
+            check_server(ip,port,verbose)
+            #thread = threading.Thread(target=check_server, args=(ip,port,verbose))
+            #check_server(ip,port,verbose)
+            #thread.start()
             time.sleep(0.05)
 
         # wait for the threads to complete
-        thread.join()
+        #thread.join()
 
     # if we are just using 1 IP address
     else:
@@ -166,17 +169,9 @@ if __name__ == '__main__':
     # setting the timeout too low can result in false
     timeout_secs = 3
 
-    if connected:
-        if vulnerable:
-            print('Scan Completed: server is vulnerable')
-        else:
-            print('Scan Completed: server is not vulnerable')
-    else:
-        print('ERROR: could not connect to server')
 
-
-    thread = threading.Thread(target=dummy)
-    thread.start()
+    #thread = threading.Thread(target=dummy)
+    #thread.start()
 
 
     # parse our commands
@@ -198,12 +193,12 @@ if __name__ == '__main__':
             with open(args.target.split(':')[1], 'r') as file:
                 hosts= file.read().splitlines()
             for target_line in hosts:
-                parse_target_args(target_line, args.targetport, verbose)
+                parse_target_args(target_line, args.targetport, timeout_secs)
 
             # wait for the threads to complete
-            thread.join()
+            #thread.join()
         else:
-            parse_target_args(args.target, args.targetport, verbose)
+            parse_target_args(args.target, args.targetport, timeout_secs)
 
 
         for server in vulnServers:
