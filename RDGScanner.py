@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 #
-# Single check to see if the server is still vulnerable to CVE-2019-19781
-# Written by: Dave Kennedy, @HackingDave
-# Company: TrustedSec
+# Single check to see if the server is still vulnerable to CVE-2020-0609 & CVE-2020-0610
+# Written by: @MalwareTech & @hevnsnt
 #
 from OpenSSL import SSL
 from OpenSSL._util import (lib as _lib)
@@ -25,7 +24,7 @@ vulnerable = True
 connected = False
 vulnServers = []
 counter = 0
-CVEvuln = "CVE-2020-0610"
+CVEvuln = "CVE-2020-0609 / CVE-2020-0610"
 
 
 
