@@ -9,7 +9,7 @@ import select
 # PyOpenSSL doesn't expose the DTLS method to python, so we have to patch it
 DTLSv1_METHOD = 7
 SSL.Context._methods[DTLSv1_METHOD] = getattr(_lib, "DTLSv1_client_method")
-
+counter = 0
 vulnerable = True
 connected = False
 
