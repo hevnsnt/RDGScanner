@@ -1,5 +1,6 @@
 from OpenSSL import SSL
 from OpenSSL._util import (lib as _lib)
+from netaddr import IPNetwork
 import sys
 import socket
 import struct
